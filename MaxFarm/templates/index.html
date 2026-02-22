@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Crop Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2d572c;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background: #2d572c;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1e3e1e;
+        }
+
+        .result {
+            margin-top: 40px;
+            padding: 20px;
+            background: #e8f5e9;
+            border-left: 6px solid #388e3c;
+            white-space: pre-wrap;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌾 Smart Crop Planner</h1>
+        <form method="POST">
+            {% for field in ["Nitrogen", "Phosphorous", "Potassium", "OrganicCarbon", "pH", "EC", "Sulphur", "Iron", "Zinc", "Copper", "Boron", "Manganese"] %}
+                <label>{{ field }}:</label>
+                <input type="number" step="any" name="{{ field }}" required><br>
+            {% endfor %}
+            <label>Soil Type:</label>
+            <input type="text" name="soil_type" required><br>
+
+            <label>Total Duration (months):</label>
+            <input type="number" name="total_duration" required><br>
+
+            <label>Investment Budget (₹):</label>
+            <input type="number" name="investment_budget" required><br>
+
+            <button type="submit">Get Crop Cycles</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Suggested Crop Cycles:</h2>
+                <pre>{{ result }}</pre>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
